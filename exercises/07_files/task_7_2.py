@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Задание 7.2
@@ -40,3 +41,12 @@ interface Ethernet0/3
 ...
 
 """
+
+from sys import argv
+text = argv[1:]
+text = ''.join(text)
+
+with open(text) as src:
+    for line in src:
+        if '!' not in line:
+            print(line)
