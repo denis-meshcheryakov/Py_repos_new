@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Задание 7.2c
@@ -16,4 +17,21 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
 
+from sys import argv
+src = argv[1]
+src = ''.join(src)
+dest = argv[2]
+dest = ''.join(dest)
 ignore = ["duplex", "alias", "Current configuration"]
+result_dict = []
+
+with open(src) as lines:
+    lines = lines.readlines()
+    for line in lines:
+        if ignore[0] not in line\
+        and ignore[1] not in line\
+        and ignore[2] not in line:
+            result_dict.append(line)
+
+with open(dest, 'w') as des_t:
+    des_t.writelines(result_dict)

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Задание 7.2b
@@ -13,4 +14,19 @@
 
 """
 
+from sys import argv
+text = argv[1:]
+text = ''.join(text)
 ignore = ["duplex", "alias", "Current configuration"]
+result_dict = []
+
+with open(text) as lines:
+    lines = lines.readlines()
+    for line in lines:
+        if ignore[0] not in line\
+        and ignore[1] not in line\
+        and ignore[2] not in line:
+            result_dict.append(line)
+
+with open('config_sw1_cleared.txt', 'w') as dest:
+    dest.writelines(result_dict)
