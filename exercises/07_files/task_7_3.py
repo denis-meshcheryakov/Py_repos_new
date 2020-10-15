@@ -23,4 +23,6 @@ with open('CAM_table.txt', 'r') as src:
     for line in src:
         if line.count('.') is 2:
             a = line.strip('\n').split()
-            print(a[0] + '   ' + a[1] + '   ' + a[3])
+            vlan, mac, _, port = a
+            rline = vlan, mac, port
+            print(rline)
