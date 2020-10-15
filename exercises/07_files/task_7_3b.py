@@ -23,6 +23,6 @@ with open('CAM_table.txt', 'r') as src:
             rline = vlan, mac, port
             lst.append(rline)
     lst.sort()
-    for ln in lst:
-        if nvlan in ln:
-            print(ln)
+    for l in lst:
+        if nvlan in l:
+            print(l)
