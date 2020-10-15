@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Задание 7.3
@@ -17,3 +18,9 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+
+with open('CAM_table.txt', 'r') as src:
+    for line in src:
+        if line.count('.') is 2:
+            a = line.strip('\n').split()
+            print(a[0] + '   ' + a[1] + '   ' + a[3])
