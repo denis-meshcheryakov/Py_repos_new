@@ -24,7 +24,6 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
-nvlan = int(input('Введите номер vlan: '))
 lst = []
 
 with open('CAM_table.txt', 'r') as src:
@@ -36,6 +35,5 @@ with open('CAM_table.txt', 'r') as src:
             rline = vlan, mac, port
             lst.append(rline)
     lst.sort()
-    for ln in lst:
-        if nvlan in ln:
-            print(ln)
+    for l in lst:
+        print(l)
