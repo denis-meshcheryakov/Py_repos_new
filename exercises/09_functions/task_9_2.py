@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Задание 9.2
@@ -54,3 +55,23 @@ trunk_config_2 = {
     "FastEthernet0/15": [111, 130],
     "FastEthernet0/14": [117],
 }
+
+def generate_trunk_config(intf_vlan_mapping, *trunk_template):
+    """
+    Возвращает список всех портов в режиме access
+    с конфигурацией на основе шаблона trunk_mode_template
+    """
+    result = []
+
+    for intf, vlan in trunk_config.items():
+        result.append(f'interface {intf}')
+        for template in trunk_mode_template:
+            if template.endswith('allowed vlan'):
+                vlan = [str(num) for num in vlan]
+                vlan = ','.join(vlan)
+                result.append(template + ' ' + vlan)
+            else:
+                result.append(template)
+    return result
+for_print = generate_trunk_config(trunk_config, trunk_mode_template)
+print(for_print)

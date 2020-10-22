@@ -29,11 +29,11 @@ print(generate_access_config(access_config, access_mode_template, port_security_
 """
 
 access_mode_template = [
-"switchport mode access",
-"switchport access vlan",
-"switchport nonegotiate",
-"spanning-tree portfast",
-"spanning-tree bpduguard enable",
+    "switchport mode access",
+    "switchport access vlan",
+    "switchport nonegotiate",
+    "spanning-tree portfast",
+    "spanning-tree bpduguard enable",
 ]
 
 port_security_template = [
