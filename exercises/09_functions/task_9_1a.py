@@ -56,12 +56,11 @@ def generate_access_config(intf_vlan_mapping, access_template, psecurity = None)
         result.append(f'interface {intf}')
         for template in access_mode_template:
             if template.endswith('access vlan'):
-                result.append(template + f'{vlan}')
+                result.append(template + ' ' f'{vlan}')
             else:
                 result.append(template)
-                for line in port_security_template:
-                    if psecurity is not None:
-                        result.append(line)
+        for line in port_security_template:
+            if psecurity is not None:
+                result.append(line)
     return result
-for_print = generate_access_config(access_config, access_mode_template, psecurity = None)
-print(for_print)
+print(generate_access_config(access_config, access_mode_template, port_security_template))

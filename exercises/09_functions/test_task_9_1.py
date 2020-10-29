@@ -85,20 +85,33 @@ def test_function_return_value_different_args():
     Проверка работы функции с другими аргументами
     """
     access_vlans_mapping = {
-        "FastEthernet0/1": 101,
-        "FastEthernet0/4": 121,
+	"FastEthernet0/03": 100,
+	"FastEthernet0/07": 101,
+	"FastEthernet0/09": 107,
     }
     template_access_mode = [
         "switchport mode access",
         "switchport access vlan",
     ]
     correct_return_value = [
-        "interface FastEthernet0/1",
+        "interface FastEthernet0/03",
+        "switchport mode access",
+        "switchport access vlan 100",
+        "switchport nonegotiate",
+        "spanning-tree portfast",
+        "spanning-tree bpduguard enable",
+        "interface FastEthernet0/07",
         "switchport mode access",
         "switchport access vlan 101",
-        "interface FastEthernet0/4",
+        "switchport nonegotiate",
+        "spanning-tree portfast",
+        "spanning-tree bpduguard enable",
+        "interface FastEthernet0/09",
         "switchport mode access",
-        "switchport access vlan 121",
+        "switchport access vlan 107",
+        "switchport nonegotiate",
+        "spanning-tree portfast",
+        "spanning-tree bpduguard enable",
     ]
 
     return_value = task_9_1.generate_access_config(

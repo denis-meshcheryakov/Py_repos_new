@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Задание 9.2a
@@ -26,3 +27,23 @@ trunk_config = {
     "FastEthernet0/2": [11, 30],
     "FastEthernet0/4": [17],
 }
+
+def generate_trunk_config(intf_vlan_mapping, trunk_template):
+    """
+    Возвращает словарь всех портов в режиме trunk
+    с конфигурацией на основе шаблона trunk_mode_template
+    """
+    result = {}
+
+    for intf, vlan in intf_vlan_mapping.items():
+        config_result = []
+        for template in trunk_mode_template:
+            if template.endswith('allowed vlan'):
+                vlan = [str(num) for num in vlan]
+                vlan = ','.join(vlan)
+                config_result.append(template + ' ' + vlan)
+            else:
+                config_result.append(template)
+        result[intf] = config_result
+    return result
+print(generate_trunk_config(trunk_config, trunk_mode_template))

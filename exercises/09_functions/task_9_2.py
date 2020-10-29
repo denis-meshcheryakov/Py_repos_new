@@ -56,14 +56,14 @@ trunk_config_2 = {
     "FastEthernet0/14": [117],
 }
 
-def generate_trunk_config(intf_vlan_mapping, *trunk_template):
+def generate_trunk_config(intf_vlan_mapping, trunk_template):
     """
-    Возвращает список всех портов в режиме access
+    Возвращает список всех портов в режиме trunk
     с конфигурацией на основе шаблона trunk_mode_template
     """
     result = []
 
-    for intf, vlan in trunk_config.items():
+    for intf, vlan in intf_vlan_mapping.items():
         result.append(f'interface {intf}')
         for template in trunk_mode_template:
             if template.endswith('allowed vlan'):
@@ -73,5 +73,4 @@ def generate_trunk_config(intf_vlan_mapping, *trunk_template):
             else:
                 result.append(template)
     return result
-for_print = generate_trunk_config(trunk_config, trunk_mode_template)
-print(for_print)
+print(generate_trunk_config(trunk_config_2, trunk_mode_template))

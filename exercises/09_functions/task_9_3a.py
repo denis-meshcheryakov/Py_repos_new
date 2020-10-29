@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Задание 9.3a
@@ -23,3 +24,27 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
+def get_int_vlan_map(config_filename):
+    """ Функция обрабатывает конфигурационный файл коммутатора
+    и возвращает кортеж из двух словарей
+    """
+    access_dict = {}
+    trunk_dict = {}
+    with open(config_filename, 'r') as src:
+        for line in src:
+            if line.startswith('interface FastEthernet'):
+               intf = line.split()[-1]
+            elif 'access vlan' in line:
+                vlan = int(line.split()[-1])
+                access_dict[intf] = vlan
+            elif 'switchport mode access' in line and not 'access vlan' in line:
+                vlan = 1
+                access_dict[intf] = vlan
+            elif 'allowed vlan' in line:
+                vlan = line.split()[-1]
+                vlan = vlan.split(',')
+                vlan = [int(vlan) for vlan in vlan]
+                trunk_dict[intf] = vlan
+            result = (access_dict, trunk_dict)
+    return result
+print(get_int_vlan_map('config_sw2.txt'))

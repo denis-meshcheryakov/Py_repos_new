@@ -77,20 +77,28 @@ def test_function_return_value_different_args():
     Проверка работы функции с другими аргументами
     """
     trunk_vlans_mapping = {
-        "FastEthernet0/11": [101, 120, 130],
-        "FastEthernet0/12": [101, 130],
+        "FastEthernet0/11": [120, 131],
+        "FastEthernet0/15": [111, 130],
+        "FastEthernet0/14": [117],
     }
     template_trunk_mode = [
         "switchport mode trunk",
+        "switchport trunk native vlan 999",
         "switchport trunk allowed vlan",
     ]
     correct_return_value = [
         "interface FastEthernet0/11",
         "switchport mode trunk",
-        "switchport trunk allowed vlan 101,120,130",
-        "interface FastEthernet0/12",
+        "switchport trunk native vlan 999",
+        "switchport trunk allowed vlan 120,131",
+        "interface FastEthernet0/15",
         "switchport mode trunk",
-        "switchport trunk allowed vlan 101,130",
+        "switchport trunk native vlan 999",
+        "switchport trunk allowed vlan 111,130",
+        "interface FastEthernet0/14",
+        "switchport mode trunk",
+        "switchport trunk native vlan 999",
+        "switchport trunk allowed vlan 117",
     ]
 
     return_value = task_9_2.generate_trunk_config(

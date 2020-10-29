@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Задание 9.4
@@ -35,3 +36,19 @@ def ignore_command(command, ignore):
     * False - если нет
     """
     return any(word in command for word in ignore)
+
+def convert_config_to_dict(config_filename):
+    with open(config_filename, 'r') as src:
+        d_config = {}
+        for line in src:
+            if ignore_command(line, ignore) or '!' in line:
+                continue
+            else:
+                if line.startswith(' '):
+                    d_value = line.strip()
+                    d_config[d_key].append(d_value)
+                else:
+                    d_key = line.strip()
+                    d_config[d_key] = []
+    return d_config
+print(convert_config_to_dict('config_sw1.txt'))
