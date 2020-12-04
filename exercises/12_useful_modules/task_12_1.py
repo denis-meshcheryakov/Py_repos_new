@@ -21,9 +21,10 @@ import subprocess
 from pprint import pprint
 from threading import Thread
 
+
 ip_list = ['192.168.74.2', '192.168.100.100',
-'8.8.8.8', '8.8.4.4', '10.10.10.10',
-'20.20.20.20', '30.30.30.30', '40.40.40.40']
+            '8.8.8.8', '8.8.4.4', '10.10.10.10',
+            '20.20.20.20', '30.30.30.30', '40.40.40.40']
 
 def ping_ip_addresses(ip_list):
     reach_list = []
@@ -37,10 +38,9 @@ def ping_ip_addresses(ip_list):
             reach_list.append(ip)
         else:
             unreach_list.append(ip)
-        result = reach_list, unreach_list
-    return result
+    return reach_list, unreach_list
+
 
 if __name__ == "__main__":
     print("*" * 30)
     pprint(ping_ip_addresses(ip_list))
-

@@ -27,6 +27,7 @@ Reachable    Unreachable
 
 
 from tabulate import tabulate
+import task_12_1
 
 def print_ip_table(reach_list, unreach_list):
     src = {'Reachable': reach_list, 'Unreachable': unreach_list}
