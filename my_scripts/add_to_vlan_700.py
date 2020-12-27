@@ -43,17 +43,18 @@ def get_commands(net, n):
 commands = get_commands(net, n)
 
 def send_show_command(device, commands):
-    result = {}
     try:
         with ConnectHandler(**device) as ssh:
             ssh.enable()
-            output = ssh.send_config_set(commands)
-            output = output.strip()
-            output_wr = ssh.send_command('write')
+            output = ssh.send_config_set(commands, strip_prompt=True)
+            print(output)
+            output_wr = ssh.send_command('write', strip_prompt=True)
+            print(output_wr)
             result = output, output_wr
         return result
     except (NetmikoTimeoutException, NetmikoAuthenticationException) as error:
         print(error)
+
 
 
 if __name__ == "__main__":
@@ -61,4 +62,4 @@ if __name__ == "__main__":
         devices = yaml.safe_load(f)
     for device in devices:
         result = send_show_command(device, commands)
-        pprint(result, width=120)
+        #pprint(result, width=120)
