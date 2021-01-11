@@ -96,13 +96,13 @@ if __name__ == "__main__":
     unknown_device = {
     "device_type": "autodetect",
     "ip": ip,
-    "username": "localadmin",
-    "password": "X5remset",
+    "username": "cisco",
+    "password": "cisco",
     }
     device = {
     "device_type": vendor,
     "ip": ip,
-    "username": "localadmin",
-    "password": "X5remset",
+    "username": "cisco",
+    "password": "cisco",
     }
 result = send_show_command(device)
