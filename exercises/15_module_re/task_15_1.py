@@ -33,7 +33,6 @@ def get_ip_from_cfg(filename):
     regex = r'ip address (\S+) (\S+)'
     with open(filename) as f:
         for m in re.finditer(regex, f.read()):
-            # print(m)
             result = m.groups()
             result_list.append(result)
     return result_list
