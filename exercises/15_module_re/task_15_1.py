@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """
 Задание 15.1
 
@@ -23,4 +24,20 @@
 
 # """
 
+import re
+from pprint import pprint
 
+
+def get_ip_from_cfg(filename):
+    result_list = []
+    regex = r'ip address (\S+) (\S+)'
+    with open(filename) as f:
+        for m in re.finditer(regex, f.read()):
+            # print(m)
+            result = m.groups()
+            result_list.append(result)
+    return result_list
+
+
+if __name__ == "__main__":
+    pprint(get_ip_from_cfg('config_r1.txt'))
