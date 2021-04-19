@@ -30,7 +30,7 @@ from pprint import pprint
 
 def get_ip_from_cfg(filename):
     result_list = []
-    regex = r'ip address (\S+) (\S+)'
+    regex = r"ip address (\S+) (\S+)"
     with open(filename) as f:
         for m in re.finditer(regex, f.read()):
             result = m.groups()
