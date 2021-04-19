@@ -25,3 +25,27 @@ Ethernet0/1 соответствует список из двух кортеже
 диапазоны адресов и так далее, так как обрабатывается вывод команды, а не ввод пользователя.
 
 """
+
+import re
+from pprint import pprint
+
+
+def get_ip_from_cfg(filename):
+    result = {}
+    with open(filename) as f:
+        # сначала отбираем нужные куски конфигурации
+        match = re.finditer(
+            r'interface (\S+)\n'
+            r'(?: .*\n)*'
+            r' ip address \S+ \S+\n'
+            r'( ip address \S+ \S+ secondary\n)*',
+            f.read(),
+        )
+        # потом в этих частях находим все IP-адреса
+        for m in match:
+            result[m.group(1)] = re.findall(r'ip address (\S+) (\S+)', m.group())
+    return result
+
+
+if __name__ == "__main__":
+    pprint(get_ip_from_cfg('config_r2.txt'))
