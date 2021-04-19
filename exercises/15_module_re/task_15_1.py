@@ -29,6 +29,17 @@ from pprint import pprint
 
 
 def get_ip_from_cfg(filename):
+    regex = r"ip address (\S+) (\S+)"
+    with open(filename) as f:
+        result = re.findall(regex, f.read())
+    return result
+
+
+if __name__ == "__main__":
+    pprint(get_ip_from_cfg('config_r1.txt'))
+
+
+def get_ip_from_cfg(filename):
     result_list = []
     regex = r"ip address (\S+) (\S+)"
     with open(filename) as f:
@@ -36,7 +47,3 @@ def get_ip_from_cfg(filename):
             result = m.groups()
             result_list.append(result)
     return result_list
-
-
-if __name__ == "__main__":
-    pprint(get_ip_from_cfg('config_r1.txt'))
