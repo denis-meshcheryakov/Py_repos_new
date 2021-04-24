@@ -31,3 +31,24 @@ object network LOCAL_10.1.9.5
 
 Во всех правилах для ASA интерфейсы будут одинаковыми (inside,outside).
 """
+import re
+from pprint import pprint
+
+'ip nat inside source static tcp \1-10.1.9.5 \2-22 interface GigabitEthernet0/1 \3-20023'
+
+def convert_ios_nat_to_asa(ios_file):
+    result_list = []
+    with open(ios_file) as f:
+        for line in f:
+            result_line = re.sub(r'.* tcp (\S+) +(\d+) +interface +\S+ (\d+)',
+                                 r'object network LOCAL_\1\n' 
+                                 r' host \1\n' 
+                                 r' nat (inside,outside) static interface service tcp \2 \3',
+                                 line)
+            # pprint(result_line)
+            result_list.append(result_line)
+            # pprint(result_line)
+    return result_list
+
+if __name__ == "__main__":
+    pprint(convert_ios_nat_to_asa('cisco_nat_config.txt'))
