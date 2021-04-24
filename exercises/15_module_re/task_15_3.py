@@ -34,7 +34,6 @@ object network LOCAL_10.1.9.5
 import re
 from pprint import pprint
 
-'ip nat inside source static tcp \1-10.1.9.5 \2-22 interface GigabitEthernet0/1 \3-20023'
 
 def convert_ios_nat_to_asa(ios_file):
     result_list = []
@@ -47,6 +46,7 @@ def convert_ios_nat_to_asa(ios_file):
                                  line)
             result_list.append(result_line)
     return result_list
+
 
 if __name__ == "__main__":
     pprint(convert_ios_nat_to_asa('cisco_nat_config.txt'))
