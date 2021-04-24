@@ -45,9 +45,7 @@ def convert_ios_nat_to_asa(ios_file):
                                  r' host \1\n' 
                                  r' nat (inside,outside) static interface service tcp \2 \3',
                                  line)
-            # pprint(result_line)
             result_list.append(result_line)
-            # pprint(result_line)
     return result_list
 
 if __name__ == "__main__":
