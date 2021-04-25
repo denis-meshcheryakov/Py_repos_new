@@ -35,9 +35,9 @@ import re
 from pprint import pprint
 
 
-def convert_ios_nat_to_asa(ios_file):
+def convert_ios_nat_to_asa(ios_file, asa_file):
     result_list = []
-    with open(ios_file) as f:
+    with open(ios_file) as f, open(asa_file, "w") as asa_nat_cfg:
         for line in f:
             result_line = re.sub(r'.* tcp (\S+) +(\d+) +interface +\S+ (\d+)',
                                  r'object network LOCAL_\1\n' 
@@ -45,8 +45,10 @@ def convert_ios_nat_to_asa(ios_file):
                                  r' nat (inside,outside) static interface service tcp \2 \3',
                                  line)
             result_list.append(result_line)
-    return result_list
+        for line in result_list:
+            asa_nat_cfg.write(line)
+    return
 
 
 if __name__ == "__main__":
-    pprint(convert_ios_nat_to_asa('cisco_nat_config.txt'))
+    pprint(convert_ios_nat_to_asa('cisco_nat_config.txt', "cisco_asa_config.txt"))
