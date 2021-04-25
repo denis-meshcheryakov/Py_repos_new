@@ -36,7 +36,7 @@ import re
 
 def convert_ios_nat_to_asa(ios_file, asa_file):
     result_list = []
-    with open(ios_file) as f, open(asa_file, "w") as asa_nat_cfg:
+    with open(ios_file) as f, open(asa_file, 'w') as asa_nat_cfg:
         for line in f:
             result_line = re.sub(r'.* tcp (\S+) +(\d+) +interface +\S+ (\d+)',
                                  r'object network LOCAL_\1\n' 

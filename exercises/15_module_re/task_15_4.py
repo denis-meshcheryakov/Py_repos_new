@@ -30,7 +30,7 @@ from pprint import pprint
 def get_ints_without_description(config_file):
     result_list = []
     regex = re.compile(r'!\ninterface (?P<intf>\S+)\n'
-                       r'(?P<desc> description \S+)?')
+                       r'(?P<des> description \S+)?')
     with open(config_file) as f:
         match = regex.finditer(f.read())
         for line in match:
