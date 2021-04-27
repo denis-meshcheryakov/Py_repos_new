@@ -27,12 +27,8 @@ description Connected to SW1 port Eth 0/1
 Проверить работу функции на файле sh_cdp_n_sw1.txt.
 """
 
-'''
-r"(?P<r_dev>\w+)  +(?P<l_intf>\S+ \S+)"
-r"  +\d+  +[\w ]+  +\S+ +(?P<r_intf>\S+ \S+)"
-'''
-
 import re
+from pprint import pprint
 
 
 def generate_description_from_cdp(cdp_file):
@@ -40,3 +36,11 @@ def generate_description_from_cdp(cdp_file):
                        r'  +\d+  +[\w ]+  +\S+ +(?P<rmt_intf>\S+ \S+)')
     result_dict = {}
     with open(cdp_file) as f:
+        for match in regex.finditer(f.read()):
+            device, loc_intf, rmt_intf = match.group('device', 'loc_intf', 'rmt_intf')
+            result_dict[loc_intf] = f'description Connected to {device} port {rmt_intf}'
+    return result_dict
+
+
+if __name__ == "__main__":
+    pprint(generate_description_from_cdp('sh_cdp_n_sw1.txt'))
