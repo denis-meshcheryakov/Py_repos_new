@@ -69,5 +69,5 @@ def write_inventory_to_csv(data_filenames, csv_filename):
 
 if __name__ == '__main__':
     sh_version_files = glob.glob("sh_vers*")
-    print(sh_version_files)
+    # print(sh_version_files)
     write_inventory_to_csv(sh_version_files, 'routers_inventory.csv')
