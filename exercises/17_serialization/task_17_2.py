@@ -40,9 +40,34 @@
 Кроме того, создан список заголовков (headers), который должен быть записан в CSV.
 """
 
+import re
+import csv
 import glob
 
-sh_version_files = glob.glob("sh_vers*")
-# print(sh_version_files)
 
-headers = ["hostname", "ios", "image", "uptime"]
+def parse_sh_version(sh_version_output):
+    regex = (r'Cisco IOS .*? Version (?P<ios>\S+), .*'
+             r'uptime is (?P<uptime>[\w, ]+)\n.*'
+             r'image file is "(?P<image>\S+)".*')
+    match = re.search(regex, sh_version_output, re.DOTALL)
+    if match:
+        return match.group('ios', 'image', 'uptime')
+
+
+def write_inventory_to_csv(data_filenames, csv_filename):
+    headers = ["hostname", "ios", "image", "uptime"]
+    with open(csv_filename, 'w') as result_f:
+        writer = csv.writer(result_f)
+        writer.writerow(headers)
+        for filename in data_filenames:
+            hostname = re.search(r'sh_version_(\S+).txt', filename).group(1)
+            with open(filename) as f:
+                parse_data = parse_sh_version(f.read())
+                if parse_data:
+                    writer.writerow([hostname] + list(parse_data))
+
+
+if __name__ == '__main__':
+    sh_version_files = glob.glob("sh_vers*")
+    print(sh_version_files)
+    write_inventory_to_csv(sh_version_files, 'routers_inventory.csv')
