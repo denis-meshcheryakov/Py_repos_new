@@ -6,11 +6,14 @@
 
 Функция ожидает как аргумент имя файла в формате YAML, в котором хранится топология.
 
-Функция должна считать данные из YAML файла, преобразовать их соответственно, чтобы функция возвращала словарь такого вида:
+Функция должна считать данные из YAML файла, преобразовать их соответственно,
+чтобы функция возвращала словарь такого вида:
     {('R4', 'Fa 0/1'): ('R5', 'Fa 0/1'),
      ('R4', 'Fa 0/2'): ('R6', 'Fa 0/0')}
 
-Функция transform_topology должна не только менять формат представления топологии, но и удалять дублирующиеся соединения (их лучше всего видно на схеме, которую генерирует функция draw_topology из файла draw_network_graph.py).
+Функция transform_topology должна не только менять формат представления топологии,
+но и удалять дублирующиеся соединения (их лучше всего видно на схеме,
+которую генерирует функция draw_topology из файла draw_network_graph.py).
 
 Проверить работу функции на файле topology.yaml (должен быть создан в задании 17.3a).
 На основании полученного словаря надо сгенерировать изображение топологии с помощью функции draw_topology.
@@ -32,3 +35,23 @@
 > pip install graphviz
 
 """
+import yaml
+from draw_network_graph import draw_topology
+
+
+def transform_topology(topology_filename):
+    with open(topology_filename) as f:
+        raw_topology = yaml.safe_load(f)
+    formatted_topology = {}
+    for l_device, peer in raw_topology.items():
+        for l_int, remote in peer.items():
+            r_device, r_int = list(remote.items())[0]
+            if not (r_device, r_int) in formatted_topology:
+                formatted_topology[l_device, l_int] = (r_device, r_int)
+    return formatted_topology
+
+
+if __name__ == '__main__':
+    transform_topology = transform_topology('topology.yaml')
+    draw_topology(transform_topology)
+
