@@ -12,11 +12,24 @@
 
 Функция возвращает строку с выводом команды.
 
-Скрипт должен отправлять команду command на все устройства из файла devices.yaml с помощью функции send_show_command (эта часть кода написана).
+Скрипт должен отправлять команду command на все устройства из файла devices.yaml с помощью функции send_show_command
+(эта часть кода написана).
 
 """
 import yaml
+from netmiko import (
+    ConnectHandler,
+    NetmikoTimeoutException,
+    NetmikoAuthenticationException,
+)
 
+def send_show_command(device, commands):
+    try:
+        with ConnectHandler(**device) as ssh:
+            result = ssh.send_command(commands)
+        return result
+    except (NetmikoTimeoutException, NetmikoAuthenticationException) as error:
+        print(error)
 
 
 if __name__ == "__main__":
