@@ -17,20 +17,13 @@
 
 """
 import yaml
-from netmiko import (
-    ConnectHandler,
-    NetmikoTimeoutException,
-    NetmikoAuthenticationException,
-)
+from netmiko import ConnectHandler
 
 
 def send_show_command(device, commands):
-    try:
-        with ConnectHandler(**device) as ssh:
-            result = ssh.send_command(commands)
-        return result
-    except (NetmikoTimeoutException, NetmikoAuthenticationException) as error:
-        print(error)
+    with ConnectHandler(**device) as ssh:
+        result = ssh.send_command(commands)
+    return result
 
 
 if __name__ == "__main__":
