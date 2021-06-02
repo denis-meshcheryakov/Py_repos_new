@@ -13,7 +13,6 @@
 import yaml
 from netmiko import (
     ConnectHandler,
-    NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
 
@@ -23,7 +22,7 @@ def send_show_command(device, commands):
         with ConnectHandler(**device) as ssh:
             result = ssh.send_command(commands)
         return result
-    except (NetmikoTimeoutException, NetmikoAuthenticationException) as error:
+    except NetmikoAuthenticationException as error:
         print(error)
 
 
