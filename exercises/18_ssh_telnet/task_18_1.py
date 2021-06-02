@@ -33,7 +33,6 @@ def send_show_command(device, commands):
         print(error)
 
 
-
 if __name__ == "__main__":
     command = "sh ip int br"
     with open("devices.yaml") as f:
