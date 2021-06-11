@@ -37,7 +37,6 @@ router ospf 1
 
 Проверить работу функции на устройствах из файла devices.yaml и словаре commands
 """
-# from itertools import repeat
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from netmiko import ConnectHandler
