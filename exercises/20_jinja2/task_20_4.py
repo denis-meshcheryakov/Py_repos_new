@@ -25,7 +25,26 @@ interface Gi0/10
 в файле data_files/add_vlan_to_switch.yaml.
 
 
-Проверьте шаблон templates/add_vlan_to_switch.txt на данных в файле data_files/add_vlan_to_switch.yaml, с помощью функции generate_config из задания 20.1.
+Проверьте шаблон templates/add_vlan_to_switch.txt на данных в файле data_files/add_vlan_to_switch.yaml,
+с помощью функции generate_config из задания 20.1.
 Не копируйте код функции generate_config.
 
 """
+
+# # templates/add_vlan_to_switch.txt
+
+'''
+vlan {{ vlan_id}}
+ name {{ name }}
+ 
+{% for int in access %}
+interface {{ int }}
+ switchport mode access
+ switchport access vlan {{ vlan_id }}
+{% endfor %}
+
+{% for int in trunk %}
+interface {{ int }}
+ switchport trunk allowed vlan add {{ vlan_id}}
+{% endfor %}
+'''
