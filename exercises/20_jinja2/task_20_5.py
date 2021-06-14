@@ -47,7 +47,7 @@ def create_vpn_config(template1, template2, data_dict):
 if __name__ == '__main__':
     template1 = 'templates/gre_ipsec_vpn_1.txt'
     template2 = 'templates/gre_ipsec_vpn_2.txt'
-    vpn1 , vpn2 = create_vpn_config(template1, template2, data)
+    vpn1, vpn2 = create_vpn_config(template1, template2, data)
     print(vpn1)
     print()
     print(vpn2)
