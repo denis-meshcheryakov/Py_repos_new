@@ -27,8 +27,6 @@ def generate_config(template, data_dict):
     return templ.render(data_dict)
 
 
-
-
 # так должен выглядеть вызов функции
 if __name__ == "__main__":
     data_file = "data_files/for.yml"
