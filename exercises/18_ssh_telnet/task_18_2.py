@@ -24,12 +24,12 @@ Out[7]:
 In [8]: commands
 Out[8]: ['logging 10.255.255.1', 'logging buffered 20010', 'no logging console']
 
-In [9]: result = send_config_commands(r1, commands)
+In [9]: rslt = send_config_commands(r1, commands)
 
-In [10]: result
+In [10]: rslt
 Out[10]: 'config term\nEnter configuration commands, one per line.  End with CNTL/Z.\nR1(config)#logging 10.255.255.1\nR1(config)#logging buffered 20010\nR1(config)#no logging console\nR1(config)#end\nR1#'
 
-In [11]: print(result)
+In [11]: print(rslt)
 config term
 Enter configuration commands, one per line.  End with CNTL/Z.
 R1(config)#logging 10.255.255.1

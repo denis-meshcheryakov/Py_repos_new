@@ -10,10 +10,10 @@
 
 Пример работы функции:
 
-In [13]: result = send_config_commands(r1, commands)
+In [13]: rslt = send_config_commands(r1, commands)
 Подключаюсь к 192.168.100.1...
 
-In [14]: result = send_config_commands(r1, commands, log=False)
+In [14]: rslt = send_config_commands(r1, commands, log=False)
 
 In [15]:
 

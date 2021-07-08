@@ -38,13 +38,13 @@ Out[16]:
  'logging buffered 20010',
  'ip http server']
 
-In [17]: result = send_config_commands(r1, commands)
+In [17]: rslt = send_config_commands(r1, commands)
 Подключаюсь к 192.168.100.1...
 Команда "logging 0255.255.1" выполнилась с ошибкой "Invalid input detected at '^' marker." на устройстве 192.168.100.1
 Команда "logging" выполнилась с ошибкой "Incomplete command." на устройстве 192.168.100.1
 Команда "a" выполнилась с ошибкой "Ambiguous command:  "a"" на устройстве 192.168.100.1
 
-In [18]: pprint(result, width=120)
+In [18]: pprint(rslt, width=120)
 ({'ip http server': 'config term\n'
                     'Enter configuration commands, one per line.  End with CNTL/Z.\n'
                     'R1(config)#ip http server\n'
@@ -72,7 +72,7 @@ In [18]: pprint(result, width=120)
                         '\n'
                         'R1(config)#'})
 
-In [19]: good, bad = result
+In [19]: good, bad = rslt
 
 In [20]: good.keys()
 Out[20]: dict_keys(['logging buffered 20010', 'ip http server'])

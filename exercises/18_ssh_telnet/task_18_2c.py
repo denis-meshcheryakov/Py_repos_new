@@ -23,14 +23,14 @@
 
 Пример работы функции:
 
-In [11]: result = send_config_commands(r1, commands)
+In [11]: rslt = send_config_commands(r1, commands)
 Подключаюсь к 192.168.100.1...
 Команда "logging 0255.255.1" выполнилась с ошибкой "Invalid input detected at '^' marker." на устройстве 192.168.100.1
 Продолжать выполнять команды? [y]/n: y
 Команда "logging" выполнилась с ошибкой "Incomplete command." на устройстве 192.168.100.1
 Продолжать выполнять команды? [y]/n: n
 
-In [12]: pprint(result)
+In [12]: pprint(rslt)
 ({},
  {'logging': 'config term\n'
              'Enter configuration commands, one per line.  End with CNTL/Z.\n'

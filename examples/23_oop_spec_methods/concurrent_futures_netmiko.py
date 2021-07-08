@@ -15,7 +15,7 @@ logging.basicConfig(
     level=logging.INFO)
 
 start_msg = '===> {} Connection to device: {}'
-received_msg = '<=== {} Received result from device: {}'
+received_msg = '<=== {} Received rslt from device: {}'
 
 
 def connect_ssh(device_dict, command):

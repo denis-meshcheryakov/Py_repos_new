@@ -35,7 +35,7 @@ def send_show(device_dict, command):
 def parse_sh_ip_int_br(future):
     regex = (r'(\S+) +([\d.]+) +\w+ +\w+ +'
              r'(up|down|administratively down) +(up|down)')
-    ip, output = future.result()
+    ip, output = future.rslt()
     parsed = [match.groups() for match in re.finditer(regex, output)]
     logging.info(parsed_msg.format(datetime.now().time(), ip))
     with open(f'parsed_{ip}_sh_ip_int_br.csv', 'w', encoding='utf-8') as f:
