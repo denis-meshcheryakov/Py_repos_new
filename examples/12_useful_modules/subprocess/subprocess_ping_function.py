@@ -6,7 +6,7 @@ def ping_ip(ip_address):
     Ping IP address and return tuple:
     On success:
         * True
-        * command output (stdout)
+        * com_mand output (stdout)
     On failure:
         * False
         * error output (stderr)

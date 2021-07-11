@@ -27,11 +27,11 @@ def test_class_inheritance(first_router_from_devices_yaml):
 
 
 @pytest.mark.parametrize(
-    "error,command",
+    "error,com_mand",
     [
         ("Invalid input detected", "sh ip br"),
-        ("Incomplete command", "logging"),
-        ("Ambiguous command", "a"),
+        ("Incomplete com_mand", "logging"),
+        ("Ambiguous com_mand", "a"),
     ],
 )
 def test_errors(first_router_from_devices_yaml, command, error):

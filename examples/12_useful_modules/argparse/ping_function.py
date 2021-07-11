@@ -5,7 +5,7 @@ import argparse
 def ping_ip(ip_address, count):
     '''
     Ping IP address and return tuple:
-    On success: (return code = 0, command output)
+    On success: (return code = 0, com_mand output)
     On failure: (return code, error output (stderr))
     '''
     reply = subprocess.run(

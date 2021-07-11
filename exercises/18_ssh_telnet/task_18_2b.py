@@ -5,12 +5,12 @@
 Скопировать функцию send_config_commands из задания 18.2a и добавить проверку на ошибки.
 
 При выполнении каждой команды, скрипт должен проверять результат на такие ошибки:
- * Invalid input detected, Incomplete command, Ambiguous command
+ * Invalid input detected, Incomplete com_mand, Ambiguous com_mand
 
 Если при выполнении какой-то из команд возникла ошибка,
 функция должна выводить сообщение на стандартный поток вывода с информацией
 о том, какая ошибка возникла, при выполнении какой команды и на каком устройстве, например:
-Команда "logging" выполнилась с ошибкой "Incomplete command." на устройстве 192.168.100.1
+Команда "logging" выполнилась с ошибкой "Incomplete com_mand." на устройстве 192.168.100.1
 
 Ошибки должны выводиться всегда, независимо от значения параметра log.
 При этом, параметр log по-прежнему должен контролировать будет ли выводиться сообщение:
@@ -41,8 +41,8 @@ Out[16]:
 In [17]: rslt = send_config_commands(r1, commands)
 Подключаюсь к 192.168.100.1...
 Команда "logging 0255.255.1" выполнилась с ошибкой "Invalid input detected at '^' marker." на устройстве 192.168.100.1
-Команда "logging" выполнилась с ошибкой "Incomplete command." на устройстве 192.168.100.1
-Команда "a" выполнилась с ошибкой "Ambiguous command:  "a"" на устройстве 192.168.100.1
+Команда "logging" выполнилась с ошибкой "Incomplete com_mand." на устройстве 192.168.100.1
+Команда "a" выполнилась с ошибкой "Ambiguous com_mand:  "a"" на устройстве 192.168.100.1
 
 In [18]: pprint(rslt, width=120)
 ({'ip http server': 'config term\n'
@@ -56,12 +56,12 @@ In [18]: pprint(rslt, width=120)
  {'a': 'config term\n'
        'Enter configuration commands, one per line.  End with CNTL/Z.\n'
        'R1(config)#a\n'
-       '% Ambiguous command:  "a"\n'
+       '% Ambiguous com_mand:  "a"\n'
        'R1(config)#',
   'logging': 'config term\n'
              'Enter configuration commands, one per line.  End with CNTL/Z.\n'
              'R1(config)#logging\n'
-             '% Incomplete command.\n'
+             '% Incomplete com_mand.\n'
              '\n'
              'R1(config)#',
   'logging 0255.255.1': 'config term\n'
@@ -87,10 +87,10 @@ R1(config)#logging 0255.255.1
 % Invalid input detected at '^' marker.
 
 R1(config)#logging
-% Incomplete command.
+% Incomplete com_mand.
 
 R1(config)#a
-% Ambiguous command:  "a"
+% Ambiguous com_mand:  "a"
 """
 import re
 import yaml

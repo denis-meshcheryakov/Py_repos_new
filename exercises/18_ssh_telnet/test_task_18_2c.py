@@ -38,12 +38,12 @@ correct_return_value = (
         "a": "config term\n"
         "Enter configuration commands, one per line.  End with CNTL/Z.\n"
         "R1(config)#a\n"
-        '% Ambiguous command:  "a"\n'
+        '% Ambiguous com_mand:  "a"\n'
         "R1(config)#",
         "logging": "config term\n"
         "Enter configuration commands, one per line.  End with CNTL/Z.\n"
         "R1(config)#logging\n"
-        "% Incomplete command.\n"
+        "% Incomplete com_mand.\n"
         "\n"
         "R1(config)#",
         "logging 0255.255.1": "config term\n"
@@ -69,11 +69,11 @@ def test_functions_created():
 
 
 @pytest.mark.parametrize(
-    "error,command",
+    "error,com_mand",
     [
         ("Invalid input detected", "logging 0255.255.1"),
-        ("Incomplete command", "logging"),
-        ("Ambiguous command", "a"),
+        ("Incomplete com_mand", "logging"),
+        ("Ambiguous com_mand", "a"),
     ],
 )
 def test_function_stdout(

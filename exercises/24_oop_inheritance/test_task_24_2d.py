@@ -27,11 +27,11 @@ def test_class_inheritance(first_router_from_devices_yaml):
 
 
 @pytest.mark.parametrize(
-    "error,command",
+    "error,com_mand",
     [
         ("Invalid input detected", "logging 0255.255.1"),
-        ("Incomplete command", "lo"),
-        ("Ambiguous command", "a"),
+        ("Incomplete com_mand", "lo"),
+        ("Ambiguous com_mand", "a"),
     ],
 )
 def test_errors_ignore_false(first_router_from_devices_yaml, command, error):
@@ -45,11 +45,11 @@ def test_errors_ignore_false(first_router_from_devices_yaml, command, error):
 
 
 @pytest.mark.parametrize(
-    "error,command",
+    "error,com_mand",
     [
         ("Invalid input detected", "logging 0255.255.1"),
-        ("Incomplete command", "lo"),
-        ("Ambiguous command", "a"),
+        ("Incomplete com_mand", "lo"),
+        ("Ambiguous com_mand", "a"),
     ],
 )
 def test_errors_ignore_true(first_router_from_devices_yaml, command, error):

@@ -17,7 +17,7 @@ In [14]: rslt = send_config_commands(r1, commands, log=False)
 
 In [15]:
 
-Скрипт должен отправлять список команд commands на все устройства из файла devices.yaml
+Скрипт должен отправлять список команд commands на все устройства из файла dev_ices.yaml
 с помощью функции send_config_commands.
 """
 import yaml

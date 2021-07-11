@@ -39,7 +39,7 @@ with ThreadPoolExecutor(max_workers=2) as executor:
         future = executor.submit(send_show, device, 'sh clock')
         future_list.append(future)
     # то же самое в виде list comprehensions:
-    # future_list = [executor.submit(send_show, device, 'sh clock') for device in devices]
+    # future_list = [executor.submit(send_show, device, 'sh clock') for device in dev_ices]
     for f in as_completed(future_list):
         print(f.result())
 

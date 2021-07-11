@@ -34,10 +34,10 @@ def test_function_return_value():
     eem_section = (
         "event manager applet update-int-desc\n"
         " event neighbor-discovery interface regexp .*Ethernet.* cdp add\n"
-        ' action 1.0 cli command "enable"\n'
-        ' action 2.0 cli command "config t"\n'
-        ' action 3.0 cli command "interface $_nd_local_intf_name"\n'
-        ' action 4.0 cli command "description To $_nd_cdp_entry_name $_nd_port_id"\n'
+        ' action 1.0 cli com_mand "enable"\n'
+        ' action 2.0 cli com_mand "config t"\n'
+        ' action 3.0 cli com_mand "interface $_nd_local_intf_name"\n'
+        ' action 4.0 cli com_mand "description To $_nd_cdp_entry_name $_nd_port_id"\n'
     )
 
     template = "templates/cisco_router_base.txt"

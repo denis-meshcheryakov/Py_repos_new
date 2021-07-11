@@ -39,7 +39,7 @@ R1(config)#end
 R1#
 
 
-Скрипт должен отправлять команду command на все устройства из файла devices.yaml с помощью функции send_config_commands.
+Скрипт должен отправлять команду com_mand на все устройства из файла dev_ices.yaml с помощью функции send_config_commands.
 """
 import yaml
 from netmiko import ConnectHandler

@@ -34,11 +34,11 @@ def test_send_config_commands_correct_commands(first_router_from_devices_yaml, c
 
 
 @pytest.mark.parametrize(
-    "error,command",
+    "error,com_mand",
     [
         ("Invalid input detected", "logging 0255.255.1"),
-        ("Incomplete command", "logging"),
-        ("Ambiguous command", "a"),
+        ("Incomplete com_mand", "logging"),
+        ("Ambiguous com_mand", "a"),
     ],
 )
 def test_send_config_commands_wrong_commands(

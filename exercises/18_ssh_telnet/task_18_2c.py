@@ -27,7 +27,7 @@ In [11]: rslt = send_config_commands(r1, commands)
 Подключаюсь к 192.168.100.1...
 Команда "logging 0255.255.1" выполнилась с ошибкой "Invalid input detected at '^' marker." на устройстве 192.168.100.1
 Продолжать выполнять команды? [y]/n: y
-Команда "logging" выполнилась с ошибкой "Incomplete command." на устройстве 192.168.100.1
+Команда "logging" выполнилась с ошибкой "Incomplete com_mand." на устройстве 192.168.100.1
 Продолжать выполнять команды? [y]/n: n
 
 In [12]: pprint(rslt)
@@ -35,7 +35,7 @@ In [12]: pprint(rslt)
  {'logging': 'config term\n'
              'Enter configuration commands, one per line.  End with CNTL/Z.\n'
              'R1(config)#logging\n'
-             '% Incomplete command.\n'
+             '% Incomplete com_mand.\n'
              '\n'
              'R1(config)#',
   'logging 0255.255.1': 'config term\n'

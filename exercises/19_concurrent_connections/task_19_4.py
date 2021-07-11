@@ -6,7 +6,7 @@
 на разные устройства в параллельных потоках, а затем записывает вывод команд в файл.
 
 Параметры функции:
-* devices - список словарей с параметрами подключения к устройствам
+* dev_ices - список словарей с параметрами подключения к устройствам
 * show - команда show, которую нужно отправить (по умолчанию, значение None)
 * config - команды конфигурационного режима, которые нужно отправить (по умолчанию, значение None)
 * filename - имя файла, в который будут записаны выводы всех команд
@@ -31,7 +31,7 @@ Ethernet0/0                192.168.100.3   YES NVRAM  up                    up
 Ethernet0/1                unassigned      YES NVRAM  administratively down down
 
 Пример вызова функции:
-In [5]: send_commands_to_devices(devices, show='sh clock', filename='rslt.txt')
+In [5]: send_commands_to_devices(dev_ices, show='sh clock', filename='rslt.txt')
 
 In [6]: cat rslt.txt
 R1#sh clock
@@ -41,7 +41,7 @@ R2#sh clock
 R3#sh clock
 *04:56:40.354 UTC Sat Mar 23 2019
 
-In [11]: send_commands_to_devices(devices, config='logging 10.5.5.5', filename='rslt.txt')
+In [11]: send_commands_to_devices(dev_ices, config='logging 10.5.5.5', filename='rslt.txt')
 
 In [12]: cat rslt.txt
 config term
@@ -60,7 +60,7 @@ R3(config)#logging 10.5.5.5
 R3(config)#end
 R3#
 
-In [13]: send_commands_to_devices(devices,
+In [13]: send_commands_to_devices(dev_ices,
                                   config=['router ospf 55', 'network 0.0.0.0 255.255.255.255 area 0'],
                                   filename='rslt.txt')
 
