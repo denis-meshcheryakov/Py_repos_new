@@ -34,8 +34,7 @@ Out[10]:
  ('R3', 'Eth0/2'): ('R5', 'Eth0/0')}
 
 Удаление зеркального линка: в словаре есть запись ``('R3', 'Eth0/2'): ('R5', 'Eth0/0')``,
-но вызов delete_link с указанием ключа и значения в обратном порядке, должно удалять соедине
-ние:
+но вызов delete_link с указанием ключа и значения в обратном порядке, должно удалять соединение:
 
 In [11]: t.delete_link(('R5', 'Eth0/0'), ('R3', 'Eth0/2'))
 
@@ -51,15 +50,42 @@ In [13]: t.delete_link(('R5', 'Eth0/0'), ('R3', 'Eth0/2'))
 Такого соединения нет
 
 """
+from pprint import pprint
 
-topology_example = {
-    ("R1", "Eth0/0"): ("SW1", "Eth0/1"),
-    ("R2", "Eth0/0"): ("SW1", "Eth0/2"),
-    ("R2", "Eth0/1"): ("SW2", "Eth0/11"),
-    ("R3", "Eth0/0"): ("SW1", "Eth0/3"),
-    ("R3", "Eth0/1"): ("R4", "Eth0/0"),
-    ("R3", "Eth0/2"): ("R5", "Eth0/0"),
-    ("SW1", "Eth0/1"): ("R1", "Eth0/0"),
-    ("SW1", "Eth0/2"): ("R2", "Eth0/0"),
-    ("SW1", "Eth0/3"): ("R3", "Eth0/0"),
-}
+
+class Topology:
+    def __init__(self, topology_dict):
+        self.topology = self._normalize(topology_dict)
+
+    def _normalize(self, topology_dict):
+        normalized_topology = {}
+        for local, remote in topology_dict.items():
+            if remote not in normalized_topology:
+                normalized_topology[local] = remote
+        return normalized_topology
+
+    def delete_link(self, from_port, to_port):
+        if self.topology.get(from_port) == to_port:
+            del self.topology[from_port]
+        elif self.topology.get(to_port) == from_port:
+            del self.topology[to_port]
+        else:
+            print('Такого соединения нет')
+
+
+if __name__ == '__main__':
+    topology_example = {
+        ("R1", "Eth0/0"): ("SW1", "Eth0/1"),
+        ("R2", "Eth0/0"): ("SW1", "Eth0/2"),
+        ("R2", "Eth0/1"): ("SW2", "Eth0/11"),
+        ("R3", "Eth0/0"): ("SW1", "Eth0/3"),
+        ("R3", "Eth0/1"): ("R4", "Eth0/0"),
+        ("R3", "Eth0/2"): ("R5", "Eth0/0"),
+        ("SW1", "Eth0/1"): ("R1", "Eth0/0"),
+        ("SW1", "Eth0/2"): ("R2", "Eth0/0"),
+        ("SW1", "Eth0/3"): ("R3", "Eth0/0"),
+    }
+    top = Topology(topology_example)
+    pprint(top.topology)
+    top.delete_link(('R5', 'Eth0/1'), ('R3', 'Eth0/2'))
+    pprint(top.topology)
