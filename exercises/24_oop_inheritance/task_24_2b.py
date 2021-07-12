@@ -21,6 +21,6 @@ ErrorInCommand                            Traceback (most recent call last)
 ----> 1 r1.send_config_set('lo')
 
 ...
-ErrorInCommand: При выполнении команды "lo" на устройстве 192.168.100.1 возникла ошибка "Incomplete command."
+ErrorInCommand: При выполнении команды "lo" на устройстве 192.168.100.1 возникла ошибка "Incomplete com_mand."
 
 """

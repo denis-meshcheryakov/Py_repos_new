@@ -19,7 +19,7 @@ start_msg = '===> {} Connection: {}'
 received_msg = '<=== {} Received: {}'
 
 start_msg = '===> {} Connection to device: {}'
-received_msg = '<=== {} Received result from device: {}'
+received_msg = '<=== {} Received rslt from device: {}'
 
 
 class CiscoSSH:

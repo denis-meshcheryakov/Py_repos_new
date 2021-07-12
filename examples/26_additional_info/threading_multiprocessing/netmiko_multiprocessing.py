@@ -6,7 +6,7 @@ from pprint import pprint
 from netmiko import ConnectHandler
 
 COMMAND = sys.argv[1]
-with open('devices.yaml') as f:
+with open('dev_ices.yaml') as f:
     devices = yaml.safe_load(f)
 
 

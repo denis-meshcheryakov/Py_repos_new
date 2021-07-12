@@ -17,10 +17,10 @@ In [2]: from task_24_2d import MyNetmiko
 In [3]: r1 = MyNetmiko(**device_params)
 
 In [6]: r1.send_config_set('lo')
-Out[6]: 'config term\nEnter configuration commands, one per line.  End with CNTL/Z.\nR1(config)#lo\n% Incomplete command.\n\nR1(config)#end\nR1#'
+Out[6]: 'config term\nEnter configuration commands, one per line.  End with CNTL/Z.\nR1(config)#lo\n% Incomplete com_mand.\n\nR1(config)#end\nR1#'
 
 In [7]: r1.send_config_set('lo', ignore_errors=True)
-Out[7]: 'config term\nEnter configuration commands, one per line.  End with CNTL/Z.\nR1(config)#lo\n% Incomplete command.\n\nR1(config)#end\nR1#'
+Out[7]: 'config term\nEnter configuration commands, one per line.  End with CNTL/Z.\nR1(config)#lo\n% Incomplete com_mand.\n\nR1(config)#end\nR1#'
 
 In [8]: r1.send_config_set('lo', ignore_errors=False)
 ---------------------------------------------------------------------------
@@ -29,5 +29,5 @@ ErrorInCommand                            Traceback (most recent call last)
 ----> 1 r1.send_config_set('lo', ignore_errors=False)
 
 ...
-ErrorInCommand: При выполнении команды "lo" на устройстве 192.168.100.1 возникла ошибка "Incomplete command."
+ErrorInCommand: При выполнении команды "lo" на устройстве 192.168.100.1 возникла ошибка "Incomplete com_mand."
 """

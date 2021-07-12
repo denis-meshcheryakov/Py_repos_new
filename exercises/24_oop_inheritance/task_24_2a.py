@@ -6,7 +6,7 @@
 Дополнить класс MyNetmiko из задания 24.2.
 
 Добавить метод _check_error_in_command, который выполняет проверку на такие ошибки:
- * Invalid input detected, Incomplete command, Ambiguous command
+ * Invalid input detected, Incomplete com_mand, Ambiguous com_mand
 
 Метод ожидает как аргумент команду и вывод команды.
 Если в выводе не обнаружена ошибка, метод ничего не возвращает.

@@ -7,7 +7,7 @@
 а затем записывает вывод команд в файл. Вывод с устройств в файле может быть в любом порядке.
 
 Параметры функции:
-* devices - список словарей с параметрами подключения к устройствам
+* dev_ices - список словарей с параметрами подключения к устройствам
 * commands_dict - словарь в котором указано на какое устройство отправлять какие команды. Пример словаря - commands
 * filename - имя файла, в который будут записаны выводы всех команд
 * limit - максимальное количество параллельных потоков (по умолчанию 3)
@@ -45,13 +45,47 @@ O        10.30.0.0/24 [110/20] via 192.168.100.1, 07:12:03, Ethernet0/0
 
 Для выполнения задания можно создавать любые дополнительные функции, а также использовать функции созданные в предыдущих заданиях.
 
-Проверить работу функции на устройствах из файла devices.yaml и словаре commands
+Проверить работу функции на устройствах из файла dev_ices.yaml и словаре commands
 """
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+from netmiko import ConnectHandler
+import yaml
+
 
 # Этот словарь нужен только для проверки работа кода, в нем можно менять IP-адреса
-# тест берет адреса из файла devices.yaml
+# тест берет адреса из файла dev_ices.yaml
 commands = {
     "192.168.100.3": ["sh ip int br", "sh ip route | ex -"],
     "192.168.100.1": ["sh ip int br", "sh int desc"],
     "192.168.100.2": ["sh int desc"],
 }
+
+
+def send_show_command(device, commands):
+    output = ''
+    with ConnectHandler(**device) as ssh:
+        ssh.enable()
+        for command in commands:
+            result = ssh.send_command(command)
+            prompt = ssh.find_prompt()
+            output += f'{prompt}{command}\n{result}\n'
+    return output
+
+
+def send_commands_to_devices(devices, commands_dict, filename, limit=3):
+    with ThreadPoolExecutor(max_workers=limit) as executor:
+        futures = []
+        for device in devices:
+            ip = device['host']
+            command = commands_dict[ip]
+            futures.append(executor.submit(send_show_command, device, command))
+        with open(filename, 'w') as f:
+            for future in as_completed(futures):
+                f.write(future.result())
+
+
+if __name__ == '__main__':
+    with open('devices.yaml') as f:
+        devices = yaml.safe_load(f)
+    send_commands_to_devices(devices, commands, 'result_19_3_a.txt')

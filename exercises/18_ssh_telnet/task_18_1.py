@@ -8,15 +8,22 @@
 
 Параметры функции:
 * device - словарь с параметрами подключения к устройству
-* command - команда, которую надо выполнить
+* com_mand - команда, которую надо выполнить
 
 Функция возвращает строку с выводом команды.
 
-Скрипт должен отправлять команду command на все устройства из файла devices.yaml с помощью функции send_show_command (эта часть кода написана).
+Скрипт должен отправлять команду com_mand на все устройства из файла dev_ices.yaml с помощью функции send_show_command
+(эта часть кода написана).
 
 """
 import yaml
+from netmiko import ConnectHandler
 
+
+def send_show_command(device, commands):
+    with ConnectHandler(**device) as ssh:
+        result = ssh.send_command(commands)
+    return result
 
 
 if __name__ == "__main__":

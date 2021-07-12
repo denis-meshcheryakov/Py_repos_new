@@ -2,10 +2,11 @@
 """
 Задание 19.4
 
-Создать функцию send_commands_to_devices, которая отправляет команду show или config на разные устройства в параллельных потоках, а затем записывает вывод команд в файл.
+Создать функцию send_commands_to_devices, которая отправляет команду show или config
+на разные устройства в параллельных потоках, а затем записывает вывод команд в файл.
 
 Параметры функции:
-* devices - список словарей с параметрами подключения к устройствам
+* dev_ices - список словарей с параметрами подключения к устройствам
 * show - команда show, которую нужно отправить (по умолчанию, значение None)
 * config - команды конфигурационного режима, которые нужно отправить (по умолчанию, значение None)
 * filename - имя файла, в который будут записаны выводы всех команд
@@ -30,9 +31,9 @@ Ethernet0/0                192.168.100.3   YES NVRAM  up                    up
 Ethernet0/1                unassigned      YES NVRAM  administratively down down
 
 Пример вызова функции:
-In [5]: send_commands_to_devices(devices, show='sh clock', filename='result.txt')
+In [5]: send_commands_to_devices(dev_ices, show='sh clock', filename='rslt.txt')
 
-In [6]: cat result.txt
+In [6]: cat rslt.txt
 R1#sh clock
 *04:56:34.668 UTC Sat Mar 23 2019
 R2#sh clock
@@ -40,9 +41,9 @@ R2#sh clock
 R3#sh clock
 *04:56:40.354 UTC Sat Mar 23 2019
 
-In [11]: send_commands_to_devices(devices, config='logging 10.5.5.5', filename='result.txt')
+In [11]: send_commands_to_devices(dev_ices, config='logging 10.5.5.5', filename='rslt.txt')
 
-In [12]: cat result.txt
+In [12]: cat rslt.txt
 config term
 Enter configuration commands, one per line.  End with CNTL/Z.
 R1(config)#logging 10.5.5.5
@@ -59,11 +60,11 @@ R3(config)#logging 10.5.5.5
 R3(config)#end
 R3#
 
-In [13]: send_commands_to_devices(devices,
+In [13]: send_commands_to_devices(dev_ices,
                                   config=['router ospf 55', 'network 0.0.0.0 255.255.255.255 area 0'],
-                                  filename='result.txt')
+                                  filename='rslt.txt')
 
-In [14]: cat result.txt
+In [14]: cat rslt.txt
 config term
 Enter configuration commands, one per line.  End with CNTL/Z.
 R1(config)#router ospf 55
@@ -86,3 +87,43 @@ R3#
 
 Для выполнения задания можно создавать любые дополнительные функции.
 """
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+from netmiko import ConnectHandler
+import yaml
+
+
+def send_show_command(device, command):
+    with ConnectHandler(**device) as ssh:
+        ssh.enable()
+        result = ssh.send_command(command)
+        prompt = ssh.find_prompt()
+    return f'{prompt}{command}\n{result}\n'
+
+
+def send_cfg_commands(device, commands):
+    with ConnectHandler(**device) as ssh:
+        ssh.enable()
+        result = ssh.send_config_set(commands)
+    return f'{result}\n'
+
+
+def send_commands_to_devices(devices, filename, *, show=None, config=None, limit=3):
+    if show and config:
+        raise ValueError("Можно передавать только один из аргументов show/config")
+    command = show if show else config
+    function = send_show_command if show else send_cfg_commands
+
+    with ThreadPoolExecutor(max_workers=limit) as executor:
+        futures = [executor.submit(function, device, command) for device in devices]
+        with open(filename, 'w') as f:
+            for future in as_completed(futures):
+                f.write(future.result())
+
+
+if __name__ == '__main__':
+    command = 'sh ip int brie'
+    with open('devices.yaml') as f:
+        devices = yaml.safe_load(f)
+    send_commands_to_devices(devices, show=command, filename='result_19_4.txt')
+    send_commands_to_devices(devices, config='logging 10.5.5.5', filename='result_19_4_a.txt')
