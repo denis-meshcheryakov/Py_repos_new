@@ -68,6 +68,7 @@ import re
 
 class CiscoTelnet:
     def __init__(self, ip, username, password, secret):
+        self.ip = ip
         self.telnet = telnetlib.Telnet(ip)
         self.telnet.read_until(b'Username:')
         self._write_line(username)
