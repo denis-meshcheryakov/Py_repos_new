@@ -42,15 +42,59 @@ Cоединение с одним из портов существует
 
 
 """
+from pprint import pprint
 
-topology_example = {
-    ("R1", "Eth0/0"): ("SW1", "Eth0/1"),
-    ("R2", "Eth0/0"): ("SW1", "Eth0/2"),
-    ("R2", "Eth0/1"): ("SW2", "Eth0/11"),
-    ("R3", "Eth0/0"): ("SW1", "Eth0/3"),
-    ("R3", "Eth0/1"): ("R4", "Eth0/0"),
-    ("R3", "Eth0/2"): ("R5", "Eth0/0"),
-    ("SW1", "Eth0/1"): ("R1", "Eth0/0"),
-    ("SW1", "Eth0/2"): ("R2", "Eth0/0"),
-    ("SW1", "Eth0/3"): ("R3", "Eth0/0"),
-}
+
+class Topology:
+    def __init__(self, topology_dict):
+        self.topology = self._normalize(topology_dict)
+
+    def _normalize(self, topology_dict):
+        normalized_topology = {}
+        for local, remote in topology_dict.items():
+            if remote not in normalized_topology:
+                normalized_topology[local] = remote
+        return normalized_topology
+
+    def delete_link(self, from_port, to_port):
+        if self.topology.get(from_port) == to_port:
+            del self.topology[from_port]
+        elif self.topology.get(to_port) == from_port:
+            del self.topology[to_port]
+        else:
+            print('Такого соединения нет')
+
+    def delete_node(self, node):
+        original_size = len(self.topology)
+        for src, dst in list(self.topology.items()):
+            if node in src or node in dst:
+                del self.topology[src]
+        if original_size == len(self.topology):
+            print('Такого устройства нет')
+
+    def add_link(self, src, dst):
+        keys_and_values = self.topology.keys() | self.topology.values()
+        if self.topology.get(src) == dst:
+            print('Такое соединение существует')
+        elif src in keys_and_values or dst in keys_and_values:
+            print('Соединение с одним из портов существует')
+        else:
+            self.topology[src] = dst
+
+
+if __name__ == '__main__':
+    topology_example = {
+        ("R1", "Eth0/0"): ("SW1", "Eth0/1"),
+        ("R2", "Eth0/0"): ("SW1", "Eth0/2"),
+        ("R2", "Eth0/1"): ("SW2", "Eth0/11"),
+        ("R3", "Eth0/0"): ("SW1", "Eth0/3"),
+        ("R3", "Eth0/1"): ("R4", "Eth0/0"),
+        ("R3", "Eth0/2"): ("R5", "Eth0/0"),
+        ("SW1", "Eth0/1"): ("R1", "Eth0/0"),
+        ("SW1", "Eth0/2"): ("R2", "Eth0/0"),
+        ("SW1", "Eth0/3"): ("R3", "Eth0/0"),
+    }
+    top = Topology(topology_example)
+    pprint(top.topology)
+    top.add_link(("R3", "Eth0/1"), ("R4", "Eth0/0"))
+    pprint(top.topology)
