@@ -48,6 +48,7 @@ self._write_line(line)
 import time
 import telnetlib
 
+
 class CiscoTelnet:
     def __init__(self, ip, username, password, secret):
         self.telnet = telnetlib.Telnet(ip)
